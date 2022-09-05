@@ -1,5 +1,5 @@
 import os
-from flask import Flask, redirect, render_template, url_for, request
+from flask import Flask, redirect, render_template, url_for, request, flash
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
@@ -57,6 +57,7 @@ def new_customer():
     )
     db.session.add(new_customer)
     db.session.commit()
+    flash("Customer has been Created.", "success")
     return redirect(url_for("get_customers"))
   return render_template("make-customer.html", title="New Customers", form=form)
 
@@ -71,6 +72,7 @@ def edit_customer(customer_id):
     customer.name = edit_form.name.data
     customer.industry = edit_form.industry.data
     db.session.commit()
+    flash("Customer has been updated.", "success")
     return redirect(url_for("show_customer", customer_id=customer.id))
 
   return render_template("make-customer.html", title="Edit Customers", form=edit_form, is_edit=True, customer_id=customer_id)
@@ -80,6 +82,7 @@ def delete_customer(customer_id):
   customer_to_delete = Customer.query.get(customer_id)
   db.session.delete(customer_to_delete)
   db.session.commit()
+  flash("Customer has been delelted.", "danger")
   return redirect(url_for('get_customers'))
 
 # Error Handlers
