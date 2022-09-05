@@ -21,9 +21,9 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto pb-5">
         {% if is_edit: %}
-        <form action="{{ url_for('edit_customer', customer_id=customer_id) }}" method="POST">
+        <form action="{{ url_for('customer.edit_customer', customer_id=customer_id) }}" method="POST">
         {% else: %}
-        <form action="{{ url_for('new_customer') }}" method="POST">
+        <form action="{{ url_for('customer.new_customer') }}" method="POST">
         {% endif %}
 
           {{ form.csrf_token }}

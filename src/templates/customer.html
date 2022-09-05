@@ -5,8 +5,8 @@
   {% include "partials/flash.html" %}
 
   <div class="d-flex m-2">
-    <a class="btn btn-outline-secondary me-1 " href="{{ url_for('get_customers') }}"><i class="fa-solid fa-arrow-left-long px-2"></i></a>
-    <a class="btn btn-outline-secondary me-1 ms-auto" href="{{ url_for('edit_customer', customer_id=customer.id) }}"><i class="fa-solid fa-pen"></i></a>
+    <a class="btn btn-outline-secondary me-1 " href="{{ url_for('customer.get_customers') }}"><i class="fa-solid fa-arrow-left-long px-2"></i></a>
+    <a class="btn btn-outline-secondary me-1 ms-auto" href="{{ url_for('customer.edit_customer', customer_id=customer.id) }}"><i class="fa-solid fa-pen"></i></a>
     <button type="button" class="btn btn-outline-danger ms-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
       <i class="fa-solid fa-trash"></i>
     </button>
@@ -29,7 +29,7 @@
         <input id="filter" type="text" class="form-control border-secondary" placeholder="Search Contacts" aria-label="Search Contacts">
       </div>
     </div>
-    <a class="btn btn-outline-secondary my-auto ms-3" href="{{ url_for('new_customer') }}"><i class="fa-solid fa-plus"></i>  Create Contact</a>
+    <a class="btn btn-outline-secondary my-auto ms-3" href="{{ url_for('customer.new_customer') }}"><i class="fa-solid fa-plus"></i>  Create Contact</a>
   </div>
 
   <div class="row">
@@ -51,7 +51,7 @@
 
   <div class="d-flex mb-2">
     <h1 class="h2 py-2">Sales</h1>
-    <a class="btn btn-outline-secondary my-auto ms-3 ms-auto" href="{{ url_for('new_customer') }}"><i class="fa-solid fa-plus"></i>  Create Sales</a>
+    <a class="btn btn-outline-secondary my-auto ms-3 ms-auto" href="{{ url_for('customer.new_customer') }}"><i class="fa-solid fa-plus"></i>  Create Sales</a>
   </div>
 
   <div class="row">
@@ -106,7 +106,7 @@
                     <p class="card-text">{{customer.date}}</p>
                   </div>
                   <div class="col-2 text-end">
-                    <a class="btn btn-outline-secondary" href="{{ url_for('show_customer', customer_id=customer.id) }}"><i class="fa-solid fa-arrow-right-long px-2"></i></a>
+                    <a class="btn btn-outline-secondary" href="{{ url_for('customer.show_customer', customer_id=customer.id) }}"><i class="fa-solid fa-arrow-right-long px-2"></i></a>
                   </div>
                 </div>
               </div>
@@ -139,7 +139,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-        <a class="btn btn-danger" href="{{ url_for('delete_customer', customer_id=customer.id) }}">Delete</a>
+        <a class="btn btn-danger" href="{{ url_for('customer.delete_customer', customer_id=customer.id) }}">Delete</a>
       </div>
     </div>
   </div>
