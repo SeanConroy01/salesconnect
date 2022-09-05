@@ -2,10 +2,10 @@ import os
 from flask import Flask, redirect, render_template, url_for, request, flash
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
-from flask_wtf import FlaskForm
-from wtforms import StringField, DecimalField
-from wtforms.validators import DataRequired
 from datetime import date
+
+from models import Customer
+from forms import CreateCustomerForm
 
 load_dotenv()
 
@@ -17,20 +17,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-## Configure Tables
-class Customer(db.Model):
-  __tablename__ = "customers"
-  id = db.Column(db.Integer, primary_key=True)
-  name = db.Column(db.String(250), unique=True, nullable=False)
-  industry = db.Column(db.String(250), nullable=False)
-  date = db.Column(db.String(250), nullable=False)
 
 db.create_all()
-
-## WTForm
-class CreateCustomerForm(FlaskForm):
-    name = StringField("Name", validators=[DataRequired()])
-    industry = StringField("Industry", validators=[DataRequired()])
 
 @app.route('/')
 def home():
