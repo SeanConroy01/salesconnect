@@ -1,0 +1,17 @@
+Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# Development Assets
+- Development Assets/
+
+# Other
+.DS_Store
+
+# Databases
+data.db
