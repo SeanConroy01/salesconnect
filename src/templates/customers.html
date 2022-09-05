@@ -1,0 +1,84 @@
+{% include "partials/header.html" %}
+
+<div class="container">
+
+  <div class="d-flex mb-2">
+    <h1 class="h2 py-2">Customers</h1>
+    <a class="ms-auto btn btn-outline-secondary my-auto ms-3" href="{{ url_for('home') }}"><i class="fa-solid fa-plus"></i>  Create Customer</a>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-3">
+        <div class="card-header">
+          <div class="m-2">
+            <div class="">
+              <div class="row">
+                <div class="col-2 my-auto">
+                  <p class="text-bold mb-0">Name</p>
+                </div>
+                <div class="col-2 my-auto text-center">
+                  <p class="card-text">Industry</p>
+                </div>
+                <div class="col-2 my-auto text-center">
+                  <p class="card-text">Lorem Ipsum</p>
+                </div>
+                <div class="col-2 my-auto text-center">
+                  <p class="card-text">Lorem Ipsum</p>
+                </div>
+                <div class="col-2 my-auto text-center">
+                  <p class="card-text">Last Updated</p>
+                </div>
+                <div class="col-2 text-end">
+                  <p class="card-text">Opitions</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body p-0">
+          {% if customers %}
+            {% for customer in customers %}
+            <div class="m-2 searchable">
+              <div class="pb-2 px-3 pt-1 border-bottom ">
+                <div class="row">
+                  <div class="col-2 my-auto">
+                    <p class="text-bold mb-0">{{customer.name}}</p>
+                  </div>
+                  <div class="col-2 my-auto text-center">
+                    <p class="card-text">{{customer.industry}}</p>
+                  </div>
+                  <div class="col-2 my-auto text-center">
+                    <p class="card-text">Lorem Ipsum</p>
+                  </div>
+                  <div class="col-2 my-auto text-center">
+                    <p class="card-text">Lorem Ipsum</p>
+                  </div>
+                  <div class="col-2 my-auto text-center">
+                    <p class="card-text">{{customer.date}}</p>
+                  </div>
+                  <div class="col-2 text-end">
+                    <a class="btn btn-outline-secondary" href="{{ url_for('home') }}"><i class="fa-solid fa-arrow-right-long px-2"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          {% else %}
+            <div class="m-4">
+              <div class="text-center">
+                <h5 class="card-title">You have no customers...</h5>
+                <p>Create a new contract to ...</p>
+              </div>
+            </div>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% include "partials/footer.html" %}
