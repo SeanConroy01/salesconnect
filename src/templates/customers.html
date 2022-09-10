@@ -4,7 +4,14 @@
 
   <div class="d-flex mb-2">
     <h1 class="h2 py-2">Customers</h1>
-    <a class="ms-auto btn btn-outline-secondary my-auto ms-3" href="{{ url_for('customer.new_customer') }}"><i class="fa-solid fa-plus"></i>  Create Customer</a>
+    <div class="my-auto ms-auto">
+      <div class="input-group">
+        <input id="filter" type="text" class="form-control border-secondary" placeholder="Search Customers" aria-label="Search Customers">
+      </div>
+    </div>
+    {% if current_user.role == "admin": %}
+    <a class="btn btn-outline-secondary my-auto ms-3" href="{{ url_for('customer.new_customer') }}"><i class="fa-solid fa-plus"></i>  Create Customer</a>
+    {% endif %}
   </div>
 
   {% include "partials/flash.html" %}
