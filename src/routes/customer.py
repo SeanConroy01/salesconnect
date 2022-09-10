@@ -1,21 +1,25 @@
 from datetime import date
-from flask import render_template, abort, redirect, flash, url_for, Blueprint
+from flask import render_template, redirect, flash, url_for, Blueprint
+from flask_login import login_required
 from forms import CreateCustomerForm
 from models import db, Customer
 
 customer_routes = Blueprint('customer', __name__, template_folder='templates')
 
 @customer_routes.route('/customer')
+@login_required
 def get_customers():
   customers = Customer.query.all()
   return render_template("customers.html", title="Customers", customers=customers)
 
 @customer_routes.route("/customer/<int:customer_id>", methods=["GET"])
+@login_required
 def show_customer(customer_id):
   requested_customer = Customer.query.get(customer_id)
   return render_template("customer.html", title=requested_customer.name, customer=requested_customer)
 
 @customer_routes.route("/new-customer", methods=["GET", "POST"])
+@login_required
 def new_customer():
   form = CreateCustomerForm()
   if form.validate_on_submit():
@@ -31,6 +35,7 @@ def new_customer():
   return render_template("make-customer.html", title="New Customers", form=form)
 
 @customer_routes.route("/edit-customer/<int:customer_id>", methods=["GET", "POST"])
+@login_required
 def edit_customer(customer_id):
   customer = Customer.query.get(customer_id)
   edit_form = CreateCustomerForm(
@@ -47,6 +52,7 @@ def edit_customer(customer_id):
   return render_template("make-customer.html", title="Edit Customers", form=edit_form, is_edit=True, customer_id=customer_id)
 
 @customer_routes.route("/delete/<int:customer_id>", methods=["GET"])
+@login_required
 def delete_customer(customer_id):
   customer_to_delete = Customer.query.get(customer_id)
   db.session.delete(customer_to_delete)

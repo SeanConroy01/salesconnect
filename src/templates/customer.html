@@ -14,8 +14,6 @@
 
   <div class="py-4">
     <h1>{{customer.name}}</h1>
-    <h3 class="subheading">Industry: {{customer.industry}}</h3>
-    <h3 class="subheading">Industry: {{customer.industry}}</h3>
     <h3 class="subheading mb-4">Industry: {{customer.industry}}</h3>
     <span class="meta ">Last updated on {{customer.date}}</span>
   </div>
@@ -24,12 +22,7 @@
         
   <div class="d-flex mb-2">
     <h1 class="h2 py-2">Contacts</h1>
-    <div class="ms-auto my-auto ">
-      <div class="input-group">
-        <input id="filter" type="text" class="form-control border-secondary" placeholder="Search Contacts" aria-label="Search Contacts">
-      </div>
-    </div>
-    <a class="btn btn-outline-secondary my-auto ms-3" href="{{ url_for('customer.new_customer') }}"><i class="fa-solid fa-plus"></i>  Create Contact</a>
+    <a class="btn btn-outline-secondary ms-auto my-auto ms-3" href="{{ url_for('customer.new_customer') }}"><i class="fa-solid fa-plus"></i>  Create Contact</a>
   </div>
 
   <div class="row">

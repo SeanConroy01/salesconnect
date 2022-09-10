@@ -1,0 +1,76 @@
+{% include "partials/header.html" %}
+
+<div class="container">
+
+  <div class="d-flex mb-2">
+    <h1 class="h2 py-2">Admin Panel</h1>
+    <a class="ms-auto btn btn-outline-secondary my-auto ms-3" href="{{ url_for('new_user') }}"><i class="fa-solid fa-plus"></i>  Create User</a>
+  </div>
+
+  {% include "partials/flash.html" %}
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-3">
+        <div class="card-header">
+          <div class="m-2">
+            <div class="">
+              <div class="row">
+                <div class="col-2 my-auto">
+                  <p class="text-bold mb-0">Name</p>
+                </div>
+                <div class="col-3 my-auto text-center">
+                  <p class="card-text">Email</p>
+                </div>
+                <div class="col-3 my-auto text-center">
+                  <p class="card-text">Role</p>
+                </div>
+                <div class="col-4 text-end">
+                  <p class="card-text">Opitions</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body p-0">
+          {% if all_users %}
+            {% for user in all_users %}
+              {% if user != current_user %}
+              <div class="m-2 searchable">
+                <div class="pb-2 px-3 pt-1 border-bottom ">
+                  <div class="row">
+                    <div class="col-2 my-auto">
+                      <p class="text-bold mb-0">{{user.name}}</p>
+                    </div>
+                    <div class="col-3 my-auto text-center">
+                      <p class="card-text">{{user.email}}</p>
+                    </div>
+                    <div class="col-3 my-auto text-center">
+                      <p class="card-text">{{user.role}}</p>
+                    </div>
+                    <div class="col-4 text-end">
+                      <a class="btn btn-outline-secondary" href="#"><i class="fa-solid fa-arrow-right-long px-2"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <div class="m-4">
+              <div class="text-center">
+                <h5 class="card-title">You have no customers...</h5>
+                <p>Create a new contract to ...</p>
+              </div>
+            </div>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% include "partials/footer.html" %}
