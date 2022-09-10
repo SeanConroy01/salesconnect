@@ -27,3 +27,8 @@ class CreateContactForm(FlaskForm):
   email = StringField(label='Email', validators=[DataRequired()])
   role = StringField(label='Role', validators=[DataRequired()])
   phone = StringField(label='Phone Number', validators=[DataRequired()])
+
+class CreateSaleForm(FlaskForm):
+  value = StringField("Value", validators=[DataRequired()])
+  reference = StringField(label='Reference', validators=[DataRequired()])
+  status = StringField(label='Status', validators=[DataRequired()])

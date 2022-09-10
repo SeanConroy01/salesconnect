@@ -1,0 +1,81 @@
+{% include "partials/header.html" %}
+
+<div class="container">
+
+  <div class="d-flex mb-2">
+    <h1 class="h2 py-2">Sales</h1>
+    <div class="my-auto ms-auto">
+      <div class="input-group">
+        <input id="filter" type="text" class="form-control border-secondary" placeholder="Search Sales" aria-label="Search Sales">
+      </div>
+    </div>
+  </div>
+
+  {% include "partials/flash.html" %}
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-3">
+        <div class="card-header">
+          <div class="m-2">
+            <div class="">
+              <div class="row">
+                <div class="col-2 my-auto">
+                  <p class="text-bold mb-0">Customer</p>
+                </div>
+                <div class="col-2 my-auto text-center">
+                  <p class="card-text">Reference</p>
+                </div>
+                <div class="col-2 my-auto text-center">
+                  <p class="text-bold mb-0">Value</p>
+                </div>
+                <div class="col-2 my-auto text-center">
+                  <p class="card-text">Status</p>
+                </div>
+                <div class="col-2 my-auto text-center">
+                  <p class="card-text">Sales Rep</p>
+                </div>
+                <div class="col-2 text-end">
+                  <p class="card-text">Opitions</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body p-0">
+          {% for sale in current_user.sales %}
+            <div class="m-2 searchable">
+              <div class="pb-2 px-3 pt-1 border-bottom ">
+                <div class="row">
+                  <div class="col-2 my-auto">
+                    <p class="text-bold mb-0">{{sale.parent_customer.name}}</p>
+                  </div>
+                  <div class="col-2 my-auto text-center">
+                    <p class="card-text">{{sale.reference}}</p>
+                  </div>
+                  <div class="col-2 my-auto text-center">
+                    <p class="text-bold mb-0">{{sale.value}}</p>
+                  </div>
+                  <div class="col-2 my-auto text-center">
+                    <p class="card-text">{{sale.status}}</p>
+                  </div>
+                  <div class="col-2 my-auto text-center">
+                    <p class="card-text">{{sale.rep.name}}</p>
+                  </div>
+                  <div class="col-2 text-end">
+                    <a class="btn btn-outline-secondary" href="{{ url_for('customer.show_customer', customer_id=sale.customer_id) }}"><i class="fa-solid fa-arrow-right-long px-2"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% include "partials/footer.html" %}

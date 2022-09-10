@@ -70,4 +70,3 @@ def logout():
 def admin_panel():
     users = User.query.all()
     return render_template("admin-panel.html", title="Admin Panel", all_users=users, current_user=current_user)
-

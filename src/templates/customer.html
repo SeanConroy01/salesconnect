@@ -4,7 +4,7 @@
 
   {% include "partials/flash.html" %}
 
-  <div class="d-flex m-2">
+  <div class="d-flex">
     
     <a class="btn btn-outline-secondary me-1 " href="{{ url_for('customer.get_customers') }}"><i class="fa-solid fa-arrow-left-long px-2"></i></a>
     {% if current_user.role == "admin": %}
@@ -15,9 +15,10 @@
     {% endif %}
   </div>
 
-  <div class="py-4">
+  <div class="pb-4 text-center">
     <h1>{{customer.name}}</h1>
-    <h3 class="subheading mb-4">Industry: {{customer.industry}}</h3>
+    <h3 class="subheading">Industry: {{customer.industry}}</h3>
+    <h3 class="subheading mb-4">Total Sales: £1,000,000</h3>
     <span class="meta ">Last updated on {{customer.date}}</span>
   </div>
 
@@ -29,7 +30,6 @@
   </div>
 
   <div class="row">
-
       {% for contact in customer.contacts %}
       <div class="col-4 mb-3 searchable">
         <div class="card">
@@ -48,14 +48,13 @@
         </div>
       </div>
       {% endfor %}
-
   </div>
 
   <hr>
 
   <div class="d-flex mb-2">
     <h1 class="h2 py-2">Sales</h1>
-    <a class="btn btn-outline-secondary my-auto ms-3 ms-auto" href="{{ url_for('customer.new_customer') }}"><i class="fa-solid fa-plus"></i>  Create Sales</a>
+    <a class="btn btn-outline-secondary my-auto ms-3 ms-auto" href="{{ url_for('sale.new_sale', customer_id=customer.id) }}"><i class="fa-solid fa-plus"></i>  Create Sales</a>
   </div>
 
   <div class="row">
@@ -89,41 +88,35 @@
         </div>
 
         <div class="card-body p-0">
-          {% if customers %}
-            {% for customer in customers %}
+          {% for sale in customer.sales %}
             <div class="m-2 searchable">
               <div class="pb-2 px-3 pt-1 border-bottom ">
                 <div class="row">
                   <div class="col-2 my-auto">
-                    <p class="text-bold mb-0">{{customer.name}}</p>
+                    <p class="text-bold mb-0">{{sale.value}}</p>
                   </div>
                   <div class="col-2 my-auto text-center">
-                    <p class="card-text">{{customer.industry}}</p>
+                    <p class="card-text">{{sale.rep.name}}</p>
                   </div>
                   <div class="col-2 my-auto text-center">
-                    <p class="card-text">Lorem Ipsum</p>
+                    <p class="card-text">{{sale.reference}}</p>
                   </div>
                   <div class="col-2 my-auto text-center">
-                    <p class="card-text">Lorem Ipsum</p>
+                    <p class="card-text">{{sale.date}}</p>
                   </div>
                   <div class="col-2 my-auto text-center">
-                    <p class="card-text">{{customer.date}}</p>
+                    <p class="card-text">{{sale.status}}</p>
                   </div>
                   <div class="col-2 text-end">
-                    <a class="btn btn-outline-secondary" href="{{ url_for('customer.show_customer', customer_id=customer.id) }}"><i class="fa-solid fa-arrow-right-long px-2"></i></a>
+                    <a class="btn btn-outline-secondary me-1 ms-auto" href="{{ url_for('sale.edit_sale', sale_id=sale.id) }}"><i class="fa-solid fa-pen"></i></a>
+                    {% if current_user.role == "admin" or current_user == sale.rep %}
+                    <a class="btn btn-outline-danger me-1" href="{{ url_for('sale.delete_sale', sale_id=sale.id) }}"><i class="fa-solid fa-trash"></i></a>
+                    {% endif %}
                   </div>
                 </div>
               </div>
             </div>
-            {% endfor %}
-          {% else %}
-            <div class="m-4">
-              <div class="text-center">
-                <h5 class="card-title">This customer has no sales</h5>
-                <p>Create a new sale to ...</p>
-              </div>
-            </div>
-          {% endif %}
+          {% endfor %}
 
         </div>
       </div>
