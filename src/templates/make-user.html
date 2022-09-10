@@ -16,7 +16,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto pb-5">
-        <form action="{{ url_for('new_user') }}" method="POST">
+        <form action="{{ url_for('auth.new_user') }}" method="POST">
           {{ form.csrf_token }}
           <div class="form-floating mb-3">
             {{ form.name(class="form-control", placeholder="name@example.com") }}

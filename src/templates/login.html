@@ -1,7 +1,8 @@
 {% include "partials/basic-header.html" %}
 
 <div class="container">
-  <div class="row align-items-center g-lg-5 py-4">
+
+  <div class="row align-items-center g-lg-5 py-2">
     <div class="col-md-10 mx-auto col-lg-5">
       <form class="p-4 p-md-5 border rounded-3" action="{{url_for('login')}}" method="POST">
         {% include "partials/flash.html" %}
@@ -14,9 +15,28 @@
           {{ form.password(class="form-control", placeholder="name@example.com") }}
           {{ form.password.label() }}
         </div>
-        <button class="w-100 btn btn-lg btn-primary mb-3" type="submit">Login</button>
+        <button class="w-100 btn btn-lg btn-outline-primary mb-3" type="submit">Login</button>
         <span class="text-secondary" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Forgotten password?</span>
       </form>
+      <div class="mt-4 d-flex pe-3 alert alert-{{category}} alert-dismissible fade show border border-{{category}} text-{{category}} bg-transparent" role="alert">
+        
+        <div class="">
+          <h5 class="card-title pb-1">User Account</h5>
+          <p class="card-text mb-2">Email: test-5@test.com</p>
+          <p class="card-text mb-2">Password: 1234567890</p>
+        </div>
+        
+        <button type="button" class="ms-auto text-{{category}} border border-0 bg-transparent text-end" data-bs-dismiss="alert"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="d-flex pe-3 alert alert-{{category}} alert-dismissible fade show border border-{{category}} text-{{category}} bg-transparent" role="alert">
+        <h5 class="card-title pb-1">User Account</h5>
+          <p class="card-text mb-2">Email: test-5@test.com</p>
+          <p class="card-text mb-2">Password: 1234567890</p>
+        <button type="button" class="ms-auto text-{{category}} border border-0 bg-transparent text-end" data-bs-dismiss="alert"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+
     </div>
   </div>
 </div>
