@@ -51,7 +51,7 @@ def edit_customer(customer_id):
 
   return render_template("make-customer.html", title="Edit Customers", form=edit_form, is_edit=True, customer_id=customer_id)
 
-@customer_routes.route("/delete/<int:customer_id>", methods=["GET"])
+@customer_routes.route("/delete-customer<int:customer_id>", methods=["GET"])
 @login_required
 def delete_customer(customer_id):
   customer_to_delete = Customer.query.get(customer_id)

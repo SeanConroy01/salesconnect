@@ -4,7 +4,7 @@
 
   <div class="row align-items-center g-lg-5 py-2">
     <div class="col-md-10 mx-auto col-lg-5">
-      <form class="p-4 p-md-5 border rounded-3" action="{{url_for('login')}}" method="POST">
+      <form class="p-4 p-md-5 border rounded-3" action="{{url_for('auth.login')}}" method="POST">
         {% include "partials/flash.html" %}
         {{ form.csrf_token }}
         <div class="form-floating mb-3">

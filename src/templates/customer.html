@@ -25,21 +25,29 @@
   
   <div class="d-flex mb-2">
     <h1 class="h2 py-2">Contacts</h1>
-    <a class="btn btn-outline-secondary ms-auto my-auto ms-3" href="{{ url_for('customer.new_customer') }}"><i class="fa-solid fa-plus"></i>  Create Contact</a>
+    <a class="btn btn-outline-secondary ms-auto my-auto ms-3" href="{{ url_for('contact.new_contact', customer_id=customer.id) }}"><i class="fa-solid fa-plus"></i>  Create Contact</a>
   </div>
 
   <div class="row">
-    <div class="col-4 mb-3 searchable">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title pb-1">Stephen Spencer</h5>
-          <p class="card-text mb-2">Role: Lorem, ipsum dolor.</p>
-          <p class="card-text mb-2">Email: Lorem, ipsum dolor.</p>
-          <p class="card-text mb-2">Phone: Lorem, ipsum dolor.</p>
-          <p class="card-text mb-2">Region: Lorem, ipsum dolor.</p>
+
+      {% for contact in customer.contacts %}
+      <div class="col-4 mb-3 searchable">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex">
+    
+              <h5 class="card-title pb-1">{{ contact.name }}</h5>
+              <a class="btn btn-outline-secondary me-1 ms-auto" href="{{ url_for('contact.edit_contact', contact_id=contact.id) }}"><i class="fa-solid fa-pen"></i></a>
+              <a class="btn btn-outline-danger me-1" href="{{ url_for('contact.delete_contact', contact_id=contact.id) }}"><i class="fa-solid fa-trash"></i></a>
+            </div>
+            
+            <p class="card-text mb-2">Role: {{ contact.role }}</p>
+            <p class="card-text mb-2">Email: {{ contact.email }}</p>
+            <p class="card-text mb-2">Phone: {{ contact.phone }}</p>
+          </div>
         </div>
       </div>
-    </div>
+      {% endfor %}
 
   </div>
 

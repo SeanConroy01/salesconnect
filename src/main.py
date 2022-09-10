@@ -4,11 +4,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship
 
 from models import db, User
+from routes.auth import auth_routes
 from routes.home import home_routes
 from routes.customer import customer_routes
-from routes.auth import auth_routes
+from routes.contact import contact_routes
 
 load_dotenv()
 
@@ -29,13 +31,14 @@ def load_user(user_id):
 
 @login_manager.unauthorized_handler
 def unauthorized():
-  return redirect(url_for("login"))
+  return redirect(url_for("auth.login"))
 
 db.create_all()
 
+app.register_blueprint(auth_routes)
 app.register_blueprint(home_routes)
 app.register_blueprint(customer_routes)
-app.register_blueprint(auth_routes)
+app.register_blueprint(contact_routes)
 
 # Error Handlers
 @app.errorhandler(404)
