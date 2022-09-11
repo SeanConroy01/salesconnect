@@ -69,12 +69,22 @@
             </div>
             {% endfor %}
           {% else %}
+            {% if current_user.role == "admin": %}
             <div class="m-4">
               <div class="text-center">
-                <h5 class="card-title">You have no customers...</h5>
-                <p>Create a new contract to ...</p>
+                <h5 class="card-title">There are currently no existing customer.</h5>
+                <p>Create a new customer to record sales and important contacts.</p>
+                <a class="btn btn-outline-secondary my-auto ms-3" href="{{ url_for('customer.new_customer') }}"><i class="fa-solid fa-plus"></i>  Create Customer</a>
               </div>
             </div>
+            {% else %}
+            <div class="m-4">
+              <div class="text-center">
+                <h5 class="card-title">There are currently no existing customer.</h5>
+                <p>Contact an admin to create new customer to record sales and important contacts.</p>
+              </div>
+            </div>
+            {% endif %}
           {% endif %}
 
         </div>

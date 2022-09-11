@@ -9,7 +9,11 @@ sale_routes = Blueprint('sale', __name__, template_folder='templates')
 @sale_routes.route('/sale')
 @login_required
 def get_sales():
-  return render_template("sales.html", title="Customers")
+  if current_user.role == "admin":
+    sales = Sale.query.all()
+  else:
+    sales = current_user.sales
+  return render_template("sales.html", title="Customers", sales=sales)
 
 @sale_routes.route("/new-sale/<int:customer_id>", methods=["GET", "POST"])
 @login_required
@@ -30,7 +34,7 @@ def new_sale(customer_id):
     return redirect(url_for("customer.show_customer", customer_id=customer_id))
   return render_template("make-sale.html", title="New Sale", customer_id=customer_id, form=form,  current_user=current_user)
 
-@sale_routes.route("/edit-contact/<int:sale_id>", methods=["GET", "POST"])
+@sale_routes.route("/edit-sale/<int:sale_id>", methods=["GET", "POST"])
 @login_required
 def edit_sale(sale_id):
   sale = Sale.query.get(sale_id)
@@ -49,7 +53,7 @@ def edit_sale(sale_id):
     return redirect(url_for("customer.show_customer", customer_id=sale.customer_id))
   return render_template("make-sale.html", title="Edit Contact", form=edit_form, is_edit=True, sale_id=sale.id)
 
-@sale_routes.route("/delete-contact/<int:sale_id>", methods=["GET"])
+@sale_routes.route("/delete-sale/<int:sale_id>", methods=["GET"])
 @login_required
 def delete_sale(sale_id):
   sale_to_delete = Sale.query.get(sale_id)

@@ -55,6 +55,13 @@ def edit_customer(customer_id):
 @login_required
 def delete_customer(customer_id):
   customer_to_delete = Customer.query.get(customer_id)
+  # Delete linked sales
+  for sale in customer_to_delete.sales:
+    db.session.delete(sale)
+  # Delete linked contacts
+  for contact in customer_to_delete.contacts:
+    db.session.delete(contact)
+  # Delete customer
   db.session.delete(customer_to_delete)
   db.session.commit()
   flash("Customer has been delelted.", "danger")

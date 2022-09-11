@@ -3,7 +3,11 @@
 <div class="container">
 
   <div class="d-flex mb-2">
-    <h1 class="h2 py-2">Sales</h1>
+    {% if current_user.role == "admin": %}
+    <h1 class="h2 py-2">All Sales</h1>
+    {% else %}
+    <h1 class="h2 py-2">Your Sales</h1>
+    {% endif %}
     <div class="my-auto ms-auto">
       <div class="input-group">
         <input id="filter" type="text" class="form-control border-secondary" placeholder="Search Sales" aria-label="Search Sales">
@@ -44,7 +48,8 @@
         </div>
 
         <div class="card-body p-0">
-          {% for sale in current_user.sales %}
+        {% if sales %}
+          {% for sale in sales %}
             <div class="m-2 searchable">
               <div class="pb-2 px-3 pt-1 border-bottom ">
                 <div class="row">
@@ -70,6 +75,14 @@
               </div>
             </div>
           {% endfor %}
+          {% else %}
+          <div class="m-4">
+            <div class="text-center">
+              <h5 class="card-title">There are currently no existing sales.</h5>
+                <p>Create a new sale to record value, reference and status.</p>
+            </div>
+          </div>
+          {% endif %}
 
         </div>
       </div>
