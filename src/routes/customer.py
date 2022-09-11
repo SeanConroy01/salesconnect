@@ -3,7 +3,7 @@ from flask import render_template, redirect, flash, url_for, Blueprint
 from flask_login import login_required
 from forms import CreateCustomerForm
 from models import db, Customer
-from common import calculate_customer_total, calculate_all_totals, format_number
+from common import calculate_customer_total, calculate_all_totals, format_number, admin_only
 
 customer_routes = Blueprint('customer', __name__, template_folder='templates')
 
@@ -24,6 +24,7 @@ def show_customer(customer_id):
 # Customer - New Customer
 @customer_routes.route("/new-customer", methods=["GET", "POST"])
 @login_required
+@admin_only
 def new_customer():
   form = CreateCustomerForm()
   if form.validate_on_submit():
@@ -41,6 +42,7 @@ def new_customer():
 # Customer - Edit Customer
 @customer_routes.route("/edit-customer/<int:customer_id>", methods=["GET", "POST"])
 @login_required
+@admin_only
 def edit_customer(customer_id):
   customer = Customer.query.get(customer_id)
   edit_form = CreateCustomerForm(
@@ -58,6 +60,7 @@ def edit_customer(customer_id):
 # Customer - Delete Customer
 @customer_routes.route("/delete-customer<int:customer_id>", methods=["GET"])
 @login_required
+@admin_only
 def delete_customer(customer_id):
   customer_to_delete = Customer.query.get(customer_id)
   # Delete linked sales

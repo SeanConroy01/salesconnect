@@ -1,4 +1,15 @@
 from models import Sale
+from functools import wraps
+from flask import abort
+from flask_login import current_user
+
+def admin_only(f):
+  @wraps(f)
+  def decorated_function(*args, **kwargs):
+      if current_user.role != 'admin':
+          return abort(403)
+      return f(*args, **kwargs)
+  return decorated_function
 
 def get_related_sales(current_user):
   if current_user.role == "admin":

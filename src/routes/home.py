@@ -35,8 +35,6 @@ def home():
     "num": len(sales),
   }
 
-  print(customers)
-
   chart_data = {
     "customer_name": list(customers.keys()),
     "customer_value": list(customers.values()),

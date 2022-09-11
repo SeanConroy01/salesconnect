@@ -1,8 +1,8 @@
-from datetime import date
 from flask import render_template, redirect, flash, url_for, Blueprint
 from flask_login import login_required
 from forms import CreateContactForm
 from models import db, Contact, Customer
+from common import admin_only
 
 contact_routes = Blueprint('contact', __name__, template_folder='templates')
 
@@ -49,6 +49,7 @@ def edit_contact(contact_id):
 # Contact - Delete Contact
 @contact_routes.route("/delete-contact/<int:contact_id>", methods=["GET"])
 @login_required
+@admin_only
 def delete_contact(contact_id):
   print(contact_id)
   contact_to_delete = Contact.query.get(contact_id)

@@ -3,7 +3,7 @@ from flask import render_template, redirect, flash, url_for, Blueprint
 from flask_login import login_required, current_user
 from forms import CreateSaleForm
 from models import db, Sale, Customer, User
-from common import get_related_sales
+from common import get_related_sales, admin_only
 
 sale_routes = Blueprint('sale', __name__, template_folder='templates')
 
@@ -11,10 +11,6 @@ sale_routes = Blueprint('sale', __name__, template_folder='templates')
 @sale_routes.route('/sale')
 @login_required
 def get_sales():
-  # if current_user.role == "admin":
-  #   sales = Sale.query.all()
-  # else:
-  #   sales = current_user.sales
   return render_template("sales.html", title="Customers", sales=get_related_sales(current_user))
 
 # Sale - New Sale
@@ -59,6 +55,7 @@ def edit_sale(sale_id):
 # Sale - Delete Sale
 @sale_routes.route("/delete-sale/<int:sale_id>", methods=["GET"])
 @login_required
+@admin_only
 def delete_sale(sale_id):
   sale_to_delete = Sale.query.get(sale_id)
   to_return = sale_to_delete.customer_id

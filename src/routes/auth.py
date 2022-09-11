@@ -4,11 +4,14 @@ from flask import render_template, redirect, flash, url_for, Blueprint, request
 from flask_login import login_required
 from forms import RegisterForm, LoginForm, ChangePasswordForm
 from models import db, User
+from common import admin_only
 
 auth_routes = Blueprint('auth', __name__, template_folder='templates')
 
 # Authentication - Create User
 @auth_routes.route('/create-user', methods=["GET", "POST"])
+@login_required
+@admin_only
 def new_user():
   form = RegisterForm()
   if form.validate_on_submit():
@@ -62,6 +65,7 @@ def change_password():
 
 # Authentication - Logout
 @auth_routes.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
@@ -69,6 +73,7 @@ def logout():
 # Authentication - Admin Panel
 @auth_routes.route('/admin-panel')
 @login_required
+@admin_only
 def admin_panel():
     users = User.query.all()
     return render_template("admin-panel.html", title="Admin Panel", num_user=len(users), all_users=users, current_user=current_user)
@@ -76,6 +81,7 @@ def admin_panel():
 # Authentication - Delete User
 @auth_routes.route("/delete-user/<int:user_id>", methods=["GET"])
 @login_required
+@admin_only
 def delete_user(user_id):
   user_to_delete = User.query.get(user_id)
   db.session.delete(user_to_delete)
