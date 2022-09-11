@@ -34,10 +34,10 @@
           <div class="form-floating mb-3">
             {{ form.value(class="form-control", placeholder="name@example.com") }}
             {{ form.value.label() }}
-          </div>  
+          </div>
           <div class="form-floating mb-3">
-            {{ form.status(class="form-control", placeholder="name@example.com") }}
-            {{ form.status.label() }}
+            {{ form.status(class="form-select fw-normal", placeholder="Status") }}
+            {{ form.status.label(class="fw-normal") }}
           </div>  
           {% if is_edit: %}
           <button class="w-100 btn btn-lg btn-outline-secondary" type="submit">Update Sale</button>

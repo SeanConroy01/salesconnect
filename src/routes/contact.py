@@ -6,6 +6,7 @@ from models import db, Contact, Customer
 
 contact_routes = Blueprint('contact', __name__, template_folder='templates')
 
+# Contact - New Contact
 @contact_routes.route("/new-contact/<int:customer_id>", methods=["GET", "POST"])
 @login_required
 def new_contact(customer_id):
@@ -24,6 +25,7 @@ def new_contact(customer_id):
     return redirect(url_for("customer.show_customer", customer_id=customer_id))
   return render_template("make-contact.html", title="New Contact", customer_id=customer_id, form=form)
 
+# Contact - Edit Contact
 @contact_routes.route("/edit-contact/<int:contact_id>", methods=["GET", "POST"])
 @login_required
 def edit_contact(contact_id):
@@ -44,6 +46,7 @@ def edit_contact(contact_id):
     return redirect(url_for("customer.show_customer", customer_id=contact.customer_id))
   return render_template("make-contact.html", title="Edit Contact", form=edit_form, is_edit=True, contact_id=contact.id)
 
+# Contact - Delete Contact
 @contact_routes.route("/delete-contact/<int:contact_id>", methods=["GET"])
 @login_required
 def delete_contact(contact_id):

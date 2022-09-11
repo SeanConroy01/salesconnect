@@ -6,18 +6,28 @@ from models import db, Customer
 
 customer_routes = Blueprint('customer', __name__, template_folder='templates')
 
+# Customer - All Customers
 @customer_routes.route('/customer')
 @login_required
 def get_customers():
   customers = Customer.query.all()
+  for customer in customers:
+    customer.value = 0
+    for sale in customer.sales:
+      customer.value += sale.value
   return render_template("customers.html", title="Customers", customers=customers)
 
+# Customer - Show Customer
 @customer_routes.route("/customer/<int:customer_id>", methods=["GET"])
 @login_required
 def show_customer(customer_id):
   requested_customer = Customer.query.get(customer_id)
-  return render_template("customer.html", title=requested_customer.name, customer=requested_customer)
+  total_sales = 0
+  for sale in requested_customer.sales:
+    total_sales += sale.value
+  return render_template("customer.html", title=requested_customer.name, customer=requested_customer, total_sales="{:,}".format(total_sales))
 
+# Customer - New Customer
 @customer_routes.route("/new-customer", methods=["GET", "POST"])
 @login_required
 def new_customer():
@@ -34,6 +44,7 @@ def new_customer():
     return redirect(url_for("customer.get_customers"))
   return render_template("make-customer.html", title="New Customers", form=form)
 
+# Customer - Edit Customer
 @customer_routes.route("/edit-customer/<int:customer_id>", methods=["GET", "POST"])
 @login_required
 def edit_customer(customer_id):
@@ -48,9 +59,9 @@ def edit_customer(customer_id):
     db.session.commit()
     flash("Customer has been updated.", "success")
     return redirect(url_for("customer.show_customer", customer_id=customer.id))
-
   return render_template("make-customer.html", title="Edit Customers", form=edit_form, is_edit=True, customer_id=customer_id)
 
+# Customer - Delete Customer
 @customer_routes.route("/delete-customer<int:customer_id>", methods=["GET"])
 @login_required
 def delete_customer(customer_id):

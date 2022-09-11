@@ -6,6 +6,7 @@ from models import db, Sale, Customer, User
 
 sale_routes = Blueprint('sale', __name__, template_folder='templates')
 
+# Sale - Show Sales
 @sale_routes.route('/sale')
 @login_required
 def get_sales():
@@ -15,6 +16,7 @@ def get_sales():
     sales = current_user.sales
   return render_template("sales.html", title="Customers", sales=sales)
 
+# Sale - New Sale
 @sale_routes.route("/new-sale/<int:customer_id>", methods=["GET", "POST"])
 @login_required
 def new_sale(customer_id):
@@ -34,6 +36,7 @@ def new_sale(customer_id):
     return redirect(url_for("customer.show_customer", customer_id=customer_id))
   return render_template("make-sale.html", title="New Sale", customer_id=customer_id, form=form,  current_user=current_user)
 
+# Sale - Edit Sale
 @sale_routes.route("/edit-sale/<int:sale_id>", methods=["GET", "POST"])
 @login_required
 def edit_sale(sale_id):
@@ -41,7 +44,6 @@ def edit_sale(sale_id):
   edit_form = CreateSaleForm(
     reference=sale.reference,
     value=sale.value,
-    status=sale.status,
   )
   if edit_form.validate_on_submit():
     sale.reference = edit_form.reference.data
@@ -53,6 +55,7 @@ def edit_sale(sale_id):
     return redirect(url_for("customer.show_customer", customer_id=sale.customer_id))
   return render_template("make-sale.html", title="Edit Contact", form=edit_form, is_edit=True, sale_id=sale.id)
 
+# Sale - Delete Sale
 @sale_routes.route("/delete-sale/<int:sale_id>", methods=["GET"])
 @login_required
 def delete_sale(sale_id):

@@ -18,7 +18,7 @@
   <div class="pb-4 text-center">
     <h1>{{customer.name}}</h1>
     <h3 class="subheading">Industry: {{customer.industry}}</h3>
-    <h3 class="subheading mb-4">Total Sales: £1,000,000</h3>
+    <h3 class="subheading mb-4">Total Sales: £{{ total_sales }}</h3>
     <span class="meta ">Last updated on {{customer.date}}</span>
   </div>
 
@@ -105,7 +105,7 @@
               <div class="pb-2 px-3 pt-1 border-bottom ">
                 <div class="row">
                   <div class="col-2 my-auto">
-                    <p class="text-bold mb-0">{{sale.value}}</p>
+                    <p class="text-bold mb-0">£{{sale.value}}</p>
                   </div>
                   <div class="col-2 my-auto text-center">
                     <p class="card-text">{{sale.rep.name}}</p>
