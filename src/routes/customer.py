@@ -1,9 +1,10 @@
 from datetime import date
 from flask import render_template, redirect, flash, url_for, Blueprint
 from flask_login import login_required
-from forms import CreateCustomerForm
-from models import db, Customer
-from common import calculate_customer_total, calculate_all_totals, format_number, admin_only
+
+from src.forms import CreateCustomerForm
+from src.main import db, Customer
+from src.common import calculate_customer_total, calculate_all_totals, format_number, admin_only
 
 customer_routes = Blueprint('customer', __name__, template_folder='templates')
 

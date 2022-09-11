@@ -1,7 +1,8 @@
 import json
 from flask import render_template, Blueprint
 from flask_login import login_required, current_user
-from common import get_related_sales, calculate_customer_total, format_number
+
+from src.common import get_related_sales, calculate_customer_total, format_number
 
 home_routes = Blueprint('home', __name__, template_folder='templates')
 

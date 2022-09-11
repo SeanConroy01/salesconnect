@@ -1,9 +1,9 @@
 from datetime import date
 from flask import render_template, redirect, flash, url_for, Blueprint
 from flask_login import login_required, current_user
-from forms import CreateSaleForm
-from models import db, Sale, Customer, User
-from common import get_related_sales, admin_only
+from src.forms import CreateSaleForm
+from src.main import db, Sale, Customer, User
+from src.common import get_related_sales, admin_only
 
 sale_routes = Blueprint('sale', __name__, template_folder='templates')
 

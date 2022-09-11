@@ -1,7 +1,8 @@
-from models import Sale
 from functools import wraps
 from flask import abort
 from flask_login import current_user
+
+from src.main import Sale
 
 def admin_only(f):
   @wraps(f)
