@@ -7,7 +7,229 @@
   <div class="d-flex mb-2">
     <h1 class="h2 py-2">Welcome {{current_user.name}}</h1>
   </div>
+  
+  <div class="row">
 
+    <div class="col-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">£{{ data.total }}</h5>
+          {% if current_user.role == "admin": %}
+          <p class="card-text">Total Sales</p>
+          {% else %}
+          <p class="card-text">Your Total Sales</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">£{{ data.highest }}</h5>
+          {% if current_user.role == "admin": %}
+          <p class="card-text">Highest Sale</p>
+          {% else %}
+          <p class="card-text">Your Highest Sale</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ data.num }}</h5>
+          {% if current_user.role == "admin": %}
+          <p class="card-text">Number of Sale</p>
+          {% else %}
+          <p class="card-text">Your Number of Sale</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h5 text-center pb-3">Sales by Customer (%)</h2>
+          <canvas  id="customerDonut" width="200" height="100"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-8">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h5 text-center pb-3">Sales by Customer (£)</h2>
+          <canvas id="customerChart" width="200" height="90"></canvas>
+        </div>
+      </div>
+    </div>
+
+    {% if current_user.role == "admin" %}
+
+    <div class="col-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h5 text-center pb-3">Sales by Representative (%)</h2>
+          <canvas  id="repDonut" width="200" height="100"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-8">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h5 text-center pb-3">Sales by Representative (£)</h2>
+          <canvas id="repChart" width="200" height="90"></canvas>
+        </div>
+      </div>
+    </div>
+
+    {% endif %}
+  </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% block scripts %}
+<script>
+  colors = ["#023047", "#8ecae6", "#219ebc", "#ffb703", "#fb8500"];
+  chart_data = JSON.parse({{ chart_data | tojson }});
+
+  const customerDonut = new Chart(document.getElementById('customerDonut').getContext('2d'), {
+    type: 'doughnut',
+      data: {
+        labels: chart_data['customer_name'], 
+          datasets: [
+            {
+              data: chart_data['customer_value_per'],
+              borderWidth: 1.5,
+              backgroundColor: colors
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false,
+            },
+            title: {
+              display: false,
+              text: 'Asset Breakdown'
+            }
+          }
+        }
+      });
+
+  const customerChart = new Chart(document.getElementById('customerChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: chart_data['customer_name'], 
+      datasets: [
+        {
+          data: chart_data['customer_value'],
+          borderWidth: 1,
+          backgroundColor: colors
+          }
+        ]
+      },
+      options: {
+        interaction: {
+          intersect: false,
+          mode: 'nearest',
+          axis: 'x'
+        },
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        scales: {
+          y: {
+            grid: {
+              display: false
+            }
+          },
+          x: {
+            ticks: {
+              display: false //this will remove only the label
+            }
+          }
+        }
+      }
+  });
+
+  {% if current_user.role == "admin" %}
+  const repDonut = new Chart(document.getElementById('repDonut').getContext('2d'), {
+    type: 'doughnut',
+      data: {
+        labels: chart_data['rep_name'], 
+          datasets: [
+            {
+              data: chart_data['rep_value_per'],
+              borderWidth: 1.5,
+              backgroundColor: colors
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false,
+            },
+            title: {
+              display: false,
+              text: 'Asset Breakdown'
+            }
+          }
+        }
+      });
+
+  const repChart = new Chart(document.getElementById('repChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: chart_data['rep_name'], 
+      datasets: [
+        {
+          data: chart_data['rep_value'],
+          borderWidth: 1,
+          backgroundColor: colors
+          }
+        ]
+      },
+      options: {
+        interaction: {
+          intersect: false,
+          mode: 'nearest',
+          axis: 'x'
+        },
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        scales: {
+          y: {
+            grid: {
+              display: false
+            }
+          },
+          x: {
+            ticks: {
+              display: false //this will remove only the label
+            }
+          }
+        }
+      }
+  });
+  {% endif %}
+
+  </script>
+  {% endblock %}
 
 {% include "partials/footer.html" %}

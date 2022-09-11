@@ -3,6 +3,7 @@ from flask import render_template, redirect, flash, url_for, Blueprint
 from flask_login import login_required, current_user
 from forms import CreateSaleForm
 from models import db, Sale, Customer, User
+from common import get_related_sales
 
 sale_routes = Blueprint('sale', __name__, template_folder='templates')
 
@@ -10,11 +11,11 @@ sale_routes = Blueprint('sale', __name__, template_folder='templates')
 @sale_routes.route('/sale')
 @login_required
 def get_sales():
-  if current_user.role == "admin":
-    sales = Sale.query.all()
-  else:
-    sales = current_user.sales
-  return render_template("sales.html", title="Customers", sales=sales)
+  # if current_user.role == "admin":
+  #   sales = Sale.query.all()
+  # else:
+  #   sales = current_user.sales
+  return render_template("sales.html", title="Customers", sales=get_related_sales(current_user))
 
 # Sale - New Sale
 @sale_routes.route("/new-sale/<int:customer_id>", methods=["GET", "POST"])

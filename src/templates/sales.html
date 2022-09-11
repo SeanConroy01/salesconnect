@@ -25,13 +25,13 @@
             <div class="">
               <div class="row">
                 <div class="col-2 my-auto">
-                  <p class="text-bold mb-0">Customer</p>
+                  <p class="text-bold mb-0">Value</p>
                 </div>
                 <div class="col-2 my-auto text-center">
                   <p class="card-text">Reference</p>
                 </div>
                 <div class="col-2 my-auto text-center">
-                  <p class="text-bold mb-0">Value</p>
+                  <p class="text-bold mb-0">Customer</p>
                 </div>
                 <div class="col-2 my-auto text-center">
                   <p class="card-text">Status</p>
@@ -54,13 +54,13 @@
               <div class="pb-2 px-3 pt-1 border-bottom ">
                 <div class="row">
                   <div class="col-2 my-auto">
-                    <p class="text-bold mb-0">{{sale.parent_customer.name}}</p>
+                    <p class="text-bold mb-0">£{{sale.value}}</p>
                   </div>
                   <div class="col-2 my-auto text-center">
                     <p class="card-text">{{sale.reference}}</p>
                   </div>
                   <div class="col-2 my-auto text-center">
-                    <p class="text-bold mb-0">£{{sale.value}}</p>
+                    <p class="text-bold mb-0">{{sale.parent_customer.name}}</p>
                   </div>
                   <div class="col-2 my-auto text-center">
                     <p class="card-text">{{sale.status}}</p>

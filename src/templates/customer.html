@@ -79,16 +79,16 @@
                   <p class="text-bold mb-0">Value</p>
                 </div>
                 <div class="col-2 my-auto text-center">
-                  <p class="card-text">Sales Rep</p>
-                </div>
-                <div class="col-2 my-auto text-center">
                   <p class="card-text">Reference</p>
                 </div>
                 <div class="col-2 my-auto text-center">
-                  <p class="card-text">Date</p>
+                  <p class="card-text">Status</p>
                 </div>
                 <div class="col-2 my-auto text-center">
-                  <p class="card-text">Status</p>
+                  <p class="card-text">Last Updated</p>
+                </div>
+                <div class="col-2 my-auto text-center">
+                  <p class="card-text">Sales Rep</p>
                 </div>
                 <div class="col-2 text-end">
                   <p class="card-text">Opitions</p>
@@ -108,16 +108,16 @@
                     <p class="text-bold mb-0">£{{sale.value}}</p>
                   </div>
                   <div class="col-2 my-auto text-center">
-                    <p class="card-text">{{sale.rep.name}}</p>
+                    <p class="card-text">{{sale.reference}}</p>
                   </div>
                   <div class="col-2 my-auto text-center">
-                    <p class="card-text">{{sale.reference}}</p>
+                    <p class="card-text">{{sale.status}}</p>
                   </div>
                   <div class="col-2 my-auto text-center">
                     <p class="card-text">{{sale.date}}</p>
                   </div>
                   <div class="col-2 my-auto text-center">
-                    <p class="card-text">{{sale.status}}</p>
+                    <p class="card-text">{{sale.rep.name}}</p>
                   </div>
                   <div class="col-2 text-end">
                     <a class="btn btn-outline-secondary me-1 ms-auto" href="{{ url_for('sale.edit_sale', sale_id=sale.id) }}"><i class="fa-solid fa-pen"></i></a>

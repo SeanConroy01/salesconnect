@@ -3,6 +3,7 @@ from flask import render_template, redirect, flash, url_for, Blueprint
 from flask_login import login_required
 from forms import CreateCustomerForm
 from models import db, Customer
+from common import calculate_customer_total, calculate_all_totals, format_number
 
 customer_routes = Blueprint('customer', __name__, template_folder='templates')
 
@@ -11,21 +12,14 @@ customer_routes = Blueprint('customer', __name__, template_folder='templates')
 @login_required
 def get_customers():
   customers = Customer.query.all()
-  for customer in customers:
-    customer.value = 0
-    for sale in customer.sales:
-      customer.value += sale.value
-  return render_template("customers.html", title="Customers", customers=customers)
+  return render_template("customers.html", title="Customers", customers=calculate_all_totals(customers))
 
 # Customer - Show Customer
 @customer_routes.route("/customer/<int:customer_id>", methods=["GET"])
 @login_required
 def show_customer(customer_id):
   requested_customer = Customer.query.get(customer_id)
-  total_sales = 0
-  for sale in requested_customer.sales:
-    total_sales += sale.value
-  return render_template("customer.html", title=requested_customer.name, customer=requested_customer, total_sales="{:,}".format(total_sales))
+  return render_template("customer.html", title=requested_customer.name, customer=requested_customer, total_sales=format_number(calculate_customer_total(requested_customer.sales)))
 
 # Customer - New Customer
 @customer_routes.route("/new-customer", methods=["GET", "POST"])
