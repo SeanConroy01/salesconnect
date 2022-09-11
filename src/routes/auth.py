@@ -69,4 +69,13 @@ def logout():
 @login_required
 def admin_panel():
     users = User.query.all()
-    return render_template("admin-panel.html", title="Admin Panel", all_users=users, current_user=current_user)
+    return render_template("admin-panel.html", title="Admin Panel", num_user=len(users), all_users=users, current_user=current_user)
+
+@auth_routes.route("/delete-user/<int:user_id>", methods=["GET"])
+@login_required
+def delete_user(user_id):
+  user_to_delete = User.query.get(user_id)
+  db.session.delete(user_to_delete)
+  db.session.commit()
+  flash("User has been delelted.", "danger")
+  return redirect(url_for('auth.admin_panel'))

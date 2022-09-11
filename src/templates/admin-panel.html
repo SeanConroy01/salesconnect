@@ -39,7 +39,7 @@
         </div>
 
         <div class="card-body p-0">
-          {% if all_users %}
+          {% if num_user > 1 %}
             {% for user in all_users %}
               {% if user != current_user %}
               <div class="m-2 searchable">
@@ -55,7 +55,7 @@
                       <p class="card-text">{{user.role}}</p>
                     </div>
                     <div class="col-4 text-end">
-                      <a class="btn btn-outline-secondary" href="#"><i class="fa-solid fa-arrow-right-long px-2"></i></a>
+                      <a class="btn btn-outline-danger" href="{{ url_for('auth.delete_user', user_id=user.id) }}"><i class="fa-solid fa-trash"></i></a>
                     </div>
                   </div>
                 </div>
@@ -65,8 +65,9 @@
           {% else %}
             <div class="m-4">
               <div class="text-center">
-                <h5 class="card-title">You have no customers...</h5>
-                <p>Create a new contract to ...</p>
+                <h5 class="card-title">There are currently no existing users.</h5>
+                <p>Create a new user to give someone in your team access to the system.</p>
+                <a class="btn btn-outline-secondary" href="{{ url_for('auth.new_user') }}"><i class="fa-solid fa-plus"></i>  Create User</a>
               </div>
             </div>
           {% endif %}
