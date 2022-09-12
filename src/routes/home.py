@@ -25,7 +25,7 @@ def home():
     else:
       customers[sale.parent_customer.name] = sale.value
 
-    if sale.rep.name in customers:
+    if sale.rep.name in reps:
       reps[sale.rep.name] += sale.value
     else:
       reps[sale.rep.name] = sale.value
