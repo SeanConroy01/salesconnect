@@ -8,7 +8,15 @@
     {% else %}
     <h1 class="h2 py-2">Your Sales</h1>
     {% endif %}
-    <div class="my-auto ms-auto">
+    <div class="dropdown text-end ms-auto my-auto ms-3">
+      <a href="#" class="d-block text-decoration-none dropdown-toggle btn btn-outline-secondary" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa-regular fa-circle-info fa-xl"></i>
+      </a>
+      <ul class="dropdown-menu text-small">
+        <li><span class="dropdown-item-text">To create a new sales, go to the customers page and select a customer. Then scroll to the buttom of the page and in the sales section there will be a "create sale" option on the right side.</span></li>
+      </ul>
+    </div>
+    <div class="my-auto ms-2">
       <div class="input-group">
         <input id="filter" type="text" class="form-control border-secondary" placeholder="Search Sales" aria-label="Search Sales">
       </div>
