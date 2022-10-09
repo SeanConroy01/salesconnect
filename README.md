@@ -61,12 +61,12 @@ python3 app.py
 6. Go to localhost:5000/create-admin, this will create default a default admin and user account. which can then be used the create additional accounts
 ```
 Admin
-Username: zsheperd@cisco.com
-Password: 31b16Sjv*Q6a
+Username: admin@cisco.com
+Password: 1234567890
 
 User
-Username: jhopkins@cisco.com
-Password: sq61gvMUF$2b
+Username: user@cisco.com
+Password: 1234567890
 ```
 
 ## License

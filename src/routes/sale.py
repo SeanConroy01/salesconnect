@@ -17,8 +17,10 @@ def get_sales():
 @sale_routes.route("/new-sale/<int:customer_id>", methods=["GET", "POST"])
 @login_required
 def new_sale(customer_id):
+  # Create form
   form = CreateSaleForm()
   if form.validate_on_submit():
+    # Create new sale object
     new_sale = Sale(
       value=form.value.data,
       status=form.status.data,
@@ -26,11 +28,14 @@ def new_sale(customer_id):
       rep=User.query.get(current_user.id),
       date=date.today().strftime("%B %d, %Y")
     )
+    # save new object
     db.session.add(new_sale)
     db.session.commit()
+    # Log essage to user
     flash("Sale has been Created.", "success")
     return redirect(url_for("customer.show_customer", customer_id=customer_id))
   else:
+    # Log error essage to user
     if form.errors:
         for error in form.errors.values():
           flash(error[0], "danger")
@@ -41,17 +46,21 @@ def new_sale(customer_id):
 @login_required
 def edit_sale(sale_id):
   sale = Sale.query.get(sale_id)
+  # Create form
   edit_form = CreateSaleForm(
     value=sale.value
   )
+  # Update sale data
   if edit_form.validate_on_submit():
     sale.value = edit_form.value.data
     sale.status = edit_form.status.data
     sale.date = date.today().strftime("%B %d, %Y")
     db.session.commit()
+    # Log essage to user
     flash("Sale has been updated.", "success")
     return redirect(url_for("customer.show_customer", customer_id=sale.customer_id))
   else:
+    # Log error essage to user
     if edit_form.errors:
         for error in edit_form.errors.values():
           flash(error[0], "danger")
@@ -62,9 +71,12 @@ def edit_sale(sale_id):
 @login_required
 @admin_only
 def delete_sale(sale_id):
+  # Get sale to delete
   sale_to_delete = Sale.query.get(sale_id)
   to_return = sale_to_delete.customer_id
+  # Delete sale
   db.session.delete(sale_to_delete)
   db.session.commit()
+  # Log essage to user
   flash("Sale has been deleted.", "danger")
   return redirect(url_for('customer.show_customer', customer_id=to_return))

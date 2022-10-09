@@ -27,18 +27,23 @@ def show_customer(customer_id):
 @login_required
 @admin_only
 def new_customer():
+  # Create form
   form = CreateCustomerForm()
   if form.validate_on_submit():
+    # Create new customer object
     new_customer = Customer(
       name=form.name.data,
       industry=form.industry.data,
       date=date.today().strftime("%B %d, %Y")
     )
+    #  Save customer
     db.session.add(new_customer)
     db.session.commit()
+    # Log message to user
     flash("Customer has been Created.", "success")
     return redirect(url_for("customer.get_customers"))
   else:
+    # Log error essage to user
     if form.errors:
         for error in form.errors.values():
           flash(error[0], "danger")
@@ -50,17 +55,21 @@ def new_customer():
 @admin_only
 def edit_customer(customer_id):
   customer = Customer.query.get(customer_id)
+  # Create form
   edit_form = CreateCustomerForm(
     name=customer.name,
     industry=customer.industry,
   )
+  # Update customer data
   if edit_form.validate_on_submit():
     customer.name = edit_form.name.data
     customer.industry = edit_form.industry.data
     db.session.commit()
+    # Log message to user
     flash("Customer has been updated.", "success")
     return redirect(url_for("customer.show_customer", customer_id=customer.id))
   else:
+    # Log error essage to user
     if edit_form.errors:
         for error in edit_form.errors.values():
           flash(error[0], "danger")
@@ -81,5 +90,6 @@ def delete_customer(customer_id):
   # Delete customer
   db.session.delete(customer_to_delete)
   db.session.commit()
+  # Log message to user
   flash("Customer has been deleted.", "danger")
   return redirect(url_for('customer.get_customers'))

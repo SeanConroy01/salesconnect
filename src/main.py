@@ -26,6 +26,7 @@ def load_user(user_id):
 def unauthorized():
   return redirect(url_for("auth.login"))
 
+#  Create Database
 class User(UserMixin, db.Model):
   __tablename__ = "users"
   id = db.Column(db.Integer, primary_key=True)
@@ -67,19 +68,21 @@ class Sale(db.Model):
 
 db.create_all()
 
+# Import blueprints
 from src.routes.auth import auth_routes
 from src.routes.home import home_routes
 from src.routes.customer import customer_routes
 from src.routes.sale import sale_routes
 from src.routes.contact import contact_routes
 
+# Register blueprints
 app.register_blueprint(auth_routes)
 app.register_blueprint(home_routes)
 app.register_blueprint(customer_routes)
 app.register_blueprint(sale_routes)
 app.register_blueprint(contact_routes)
 
-# Error Handlers
+# Create handling routes
 @app.errorhandler(404)
 def page_not_found(e):
  return render_template('errors/404.html', title="Page Not Found"), 404
@@ -91,4 +94,3 @@ def internal_server_error(e):
 @app.errorhandler(403)
 def page_forbidden(e):
   return redirect('/')
-
