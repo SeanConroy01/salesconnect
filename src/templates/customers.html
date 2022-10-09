@@ -26,7 +26,7 @@
                 <div class="col-2 my-auto">
                   <p class="text-bold mb-0">Name</p>
                 </div>
-                <div class="col-3 my-auto text-center">
+                <div class="col-2 my-auto text-center">
                   <p class="card-text">Industry</p>
                 </div>
                 <div class="col-3 my-auto text-center">
@@ -35,7 +35,7 @@
                 <div class="col-2 my-auto text-center">
                   <p class="card-text">Last Updated</p>
                 </div>
-                <div class="col-2 text-end">
+                <div class="col-3 text-end">
                   <p class="card-text">Options</p>
                 </div>
               </div>
@@ -52,7 +52,7 @@
                   <div class="col-2 my-auto">
                     <p class="text-bold mb-0">{{customer.name}}</p>
                   </div>
-                  <div class="col-3 my-auto text-center">
+                  <div class="col-2 my-auto text-center">
                     <p class="card-text">{{customer.industry}}</p>
                   </div>
                   <div class="col-3 my-auto text-center">
@@ -61,8 +61,16 @@
                   <div class="col-2 my-auto text-center">
                     <p class="card-text">{{customer.date}}</p>
                   </div>
-                  <div class="col-2 text-end">
-                    <a class="btn btn-outline-secondary" href="{{ url_for('customer.show_customer', customer_id=customer.id) }}"><i class="fa-solid fa-arrow-right-long px-2"></i></a>
+                  <div class="col-3 text-end">
+                    {% if current_user.role == "admin": %}
+                    <a class="btn btn-outline-secondary ms-auto" href="{{ url_for('customer.edit_customer', customer_id=customer.id) }}"><i class="fa-solid fa-pen"></i></a>
+                    <button type="button" class="deleteButton btn btn-outline-danger ms-1" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                      <span class="d-none">{{ url_for('customer.delete_customer', customer_id=customer.id) }}</span>
+                      <span class="d-none">customer</span>
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                    {% endif %}
+                    <a class="btn btn-outline-secondary ms-1" href="{{ url_for('customer.show_customer', customer_id=customer.id) }}"><i class="fa-solid fa-arrow-right-long px-2"></i></a>
                   </div>
                 </div>
               </div>
@@ -72,7 +80,7 @@
             {% if current_user.role == "admin": %}
             <div class="m-4">
               <div class="text-center">
-                <h5 class="card-title">There are currently no existing customer.</h5>
+                <h5 class="card-title">No existing customers.</h5>
                 <p>Create a new customer to record sales and important contacts.</p>
                 <a class="btn btn-outline-secondary my-auto ms-3" href="{{ url_for('customer.new_customer') }}"><i class="fa-solid fa-plus"></i>  Create Customer</a>
               </div>
@@ -80,7 +88,7 @@
             {% else %}
             <div class="m-4">
               <div class="text-center">
-                <h5 class="card-title">There are currently no existing customer.</h5>
+                <h5 class="card-title">No existing customers.</h5>
                 <p>Contact an admin to create new customer to record sales and important contacts.</p>
               </div>
             </div>
