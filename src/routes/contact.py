@@ -24,7 +24,11 @@ def new_contact(customer_id):
     db.session.commit()
     flash("Contact has been Created.", "success")
     return redirect(url_for("customer.show_customer", customer_id=customer_id))
-  return render_template("make-contact.html", title="New Contact", customer_id=customer_id, form=form)
+  else:
+    if form.errors:
+      for error in form.errors.values():
+        flash(error[0], "danger")
+    return render_template("make-contact.html", title="New Contact", customer_id=customer_id, form=form)
 
 # Contact - Edit Contact
 @contact_routes.route("/edit-contact/<int:contact_id>", methods=["GET", "POST"])
@@ -45,7 +49,11 @@ def edit_contact(contact_id):
     db.session.commit()
     flash("Contact has been updated.", "success")
     return redirect(url_for("customer.show_customer", customer_id=contact.customer_id))
-  return render_template("make-contact.html", title="Edit Contact", form=edit_form, is_edit=True, contact_id=contact.id)
+  else:
+    if edit_form.errors:
+      for error in edit_form.errors.values():
+        flash(error[0], "danger")
+    return render_template("make-contact.html", title="Edit Contact", form=edit_form, is_edit=True, contact_id=contact.id)
 
 # Contact - Delete Contact
 @contact_routes.route("/delete-contact/<int:contact_id>", methods=["GET"])

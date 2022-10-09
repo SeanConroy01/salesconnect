@@ -59,7 +59,6 @@ class Sale(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   rep_id = db.Column(db.Integer, db.ForeignKey("users.id"))
   rep = relationship("User", back_populates="sales")
-  reference = db.Column(db.String(100))
   value = db.Column(db.Float())
   date = db.Column(db.String(250))
   status = db.Column(db.String(100))

@@ -38,7 +38,11 @@ def new_customer():
     db.session.commit()
     flash("Customer has been Created.", "success")
     return redirect(url_for("customer.get_customers"))
-  return render_template("make-customer.html", title="New Customers", form=form)
+  else:
+    if form.errors:
+        for error in form.errors.values():
+          flash(error[0], "danger")
+    return render_template("make-customer.html", title="New Customers", form=form)
 
 # Customer - Edit Customer
 @customer_routes.route("/edit-customer/<int:customer_id>", methods=["GET", "POST"])
@@ -56,7 +60,11 @@ def edit_customer(customer_id):
     db.session.commit()
     flash("Customer has been updated.", "success")
     return redirect(url_for("customer.show_customer", customer_id=customer.id))
-  return render_template("make-customer.html", title="Edit Customers", form=edit_form, is_edit=True, customer_id=customer_id)
+  else:
+    if edit_form.errors:
+        for error in edit_form.errors.values():
+          flash(error[0], "danger")
+    return render_template("make-customer.html", title="Edit Customers", form=edit_form, is_edit=True, customer_id=customer_id)
 
 # Customer - Delete Customer
 @customer_routes.route("/delete-customer<int:customer_id>", methods=["GET"])

@@ -20,7 +20,6 @@ def new_sale(customer_id):
   form = CreateSaleForm()
   if form.validate_on_submit():
     new_sale = Sale(
-      reference=form.reference.data,
       value=form.value.data,
       status=form.status.data,
       parent_customer=Customer.query.get(customer_id),
@@ -31,7 +30,11 @@ def new_sale(customer_id):
     db.session.commit()
     flash("Sale has been Created.", "success")
     return redirect(url_for("customer.show_customer", customer_id=customer_id))
-  return render_template("make-sale.html", title="New Sale", customer_id=customer_id, form=form,  current_user=current_user)
+  else:
+    if form.errors:
+        for error in form.errors.values():
+          flash(error[0], "danger")
+    return render_template("make-sale.html", title="New Sale", customer_id=customer_id, form=form,  current_user=current_user)
 
 # Sale - Edit Sale
 @sale_routes.route("/edit-sale/<int:sale_id>", methods=["GET", "POST"])
@@ -39,18 +42,20 @@ def new_sale(customer_id):
 def edit_sale(sale_id):
   sale = Sale.query.get(sale_id)
   edit_form = CreateSaleForm(
-    reference=sale.reference,
-    value=sale.value,
+    value=sale.value
   )
   if edit_form.validate_on_submit():
-    sale.reference = edit_form.reference.data
     sale.value = edit_form.value.data
     sale.status = edit_form.status.data
     sale.date = date.today().strftime("%B %d, %Y")
     db.session.commit()
     flash("Sale has been updated.", "success")
     return redirect(url_for("customer.show_customer", customer_id=sale.customer_id))
-  return render_template("make-sale.html", title="Edit Contact", form=edit_form, is_edit=True, sale_id=sale.id)
+  else:
+    if edit_form.errors:
+        for error in edit_form.errors.values():
+          flash(error[0], "danger")
+    return render_template("make-sale.html", title="Edit Contact", form=edit_form, is_edit=True, sale_id=sale.id)
 
 # Sale - Delete Sale
 @sale_routes.route("/delete-sale/<int:sale_id>", methods=["GET"])

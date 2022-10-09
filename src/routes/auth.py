@@ -26,6 +26,9 @@ def new_user():
       db.session.commit()
       return redirect(url_for("auth.admin_panel"))
   else:
+    if form.errors:
+      for error in form.errors.values():
+        flash(error[0], "danger")
     return render_template("make-user.html", form=form, title="Sign Up")
 
 # Authentication - Delete User
@@ -47,7 +50,7 @@ def delete_user(user_id):
 def login():
   form = LoginForm()
   if form.validate_on_submit():
-    user = User.query.filter_by(email=request.form['email']).first()
+    user = User.query.filter_by(email=request.form['email'].lower()).first()
     if not user or not check_password_hash(user.password, form.password.data):
       flash("The name or password provided were incorrect, please try again.", "danger")
       return redirect(url_for('auth.login'))
