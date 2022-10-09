@@ -67,7 +67,7 @@ def edit_customer(customer_id):
     return render_template("make-customer.html", title="Edit Customers", form=edit_form, is_edit=True, customer_id=customer_id)
 
 # Customer - Delete Customer
-@customer_routes.route("/delete-customer<int:customer_id>", methods=["GET"])
+@customer_routes.route("/delete-customer/<int:customer_id>", methods=["GET"])
 @login_required
 @admin_only
 def delete_customer(customer_id):
@@ -81,5 +81,5 @@ def delete_customer(customer_id):
   # Delete customer
   db.session.delete(customer_to_delete)
   db.session.commit()
-  flash("Customer has been delelted.", "danger")
+  flash("Customer has been deleted.", "danger")
   return redirect(url_for('customer.get_customers'))

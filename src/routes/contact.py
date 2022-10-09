@@ -64,5 +64,5 @@ def delete_contact(contact_id):
   to_return = contact_to_delete.customer_id
   db.session.delete(contact_to_delete)
   db.session.commit()
-  flash("Contact has been delelted.", "danger")
+  flash("Contact has been deleted.", "danger")
   return redirect(url_for('customer.show_customer', customer_id=to_return))

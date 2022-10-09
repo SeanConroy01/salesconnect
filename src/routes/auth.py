@@ -42,7 +42,7 @@ def delete_user(user_id):
     db.session.delete(sale)
   db.session.delete(user_to_delete)
   db.session.commit()
-  flash("User has been delelted.", "danger")
+  flash("User has been deleted.", "danger")
   return redirect(url_for('auth.admin_panel'))
 
 # Authentication - Login
