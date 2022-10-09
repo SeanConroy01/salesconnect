@@ -36,6 +36,7 @@
           <div class="form-floating mb-3">
             {{ form.password(class="form-control", placeholder="name@example.com") }}
             {{ form.password.label() }}
+            <div class="form-text">This password will only temporay until the new user logs in and changes it.</div>
           </div>  
           {% if is_edit: %}
           <button class="w-100 btn btn-lg btn-outline-secondary" type="submit">Update Contact</button>
