@@ -12,6 +12,3 @@ venv/
 
 # Other
 .DS_Store
-
-# Databases
-data.db
