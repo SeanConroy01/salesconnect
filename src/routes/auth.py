@@ -18,14 +18,14 @@ def new_user():
   # Create form
   form = RegisterForm()
   if form.validate_on_submit():
-    if User.query.filter_by(email=form.email.data).first():
+    if User.query.filter_by(email=form.email.data.lower()).first():
       # Verify email adress is not already associated with another account
       flash("The email address provided is already associated with another account, Please login or try a different email address.", "danger")
       return redirect(url_for('auth.new_user'))
     else:
       # Hash password and save user
       hash_and_salted_password = generate_password_hash(form.password.data, method='pbkdf2:sha256', salt_length=8)
-      new_user = User(name=form.name.data, email=form.email.data, role=form.role.data, password=hash_and_salted_password)
+      new_user = User(name=form.name.data, email=form.email.data.lower(), role=form.role.data, password=hash_and_salted_password)
       db.session.add(new_user)
       db.session.commit()
       return redirect(url_for("auth.admin_panel"))

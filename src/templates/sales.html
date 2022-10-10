@@ -10,7 +10,7 @@
     {% endif %}
     <div class="dropdown text-end ms-auto my-auto ms-3">
       <a href="#" class="d-block text-decoration-none dropdown-toggle btn btn-outline-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fa-regular fa-circle-info fa-xl"></i>
+        <i class="fa-solid fa-circle-info fa-xl"></i>
       </a>
       <ul class="dropdown-menu text-small">
         <li><span class="dropdown-item-text">To create a new sales, go to the customers page and select a customer. Then scroll to the buttom of the page and in the sales section there will be a "create sale" option on the right side.</span></li>
@@ -32,7 +32,7 @@
           <div class="m-2">
             <div class="">
               <div class="row">
-                <div class="col-2 my-auto">
+                <div class="col-3 my-auto">
                   <p class="card-text">Sales Rep</p>
                 </div>
                 <div class="col-2 my-auto text-center">
@@ -43,9 +43,6 @@
                 </div>
                 <div class="col-2 my-auto text-center">
                   <p class="text-bold mb-0">Customer</p>
-                </div>
-                <div class="col-1 my-auto text-center">
-                  <p class="card-text">Status</p>
                 </div>
                 <div class="col-3 text-end">
                   <p class="card-text">Options</p>
@@ -61,7 +58,7 @@
             <div class="m-2 searchable">
               <div class="pb-2 px-3 pt-1 border-bottom ">
                 <div class="row">
-                  <div class="col-2 my-auto">
+                  <div class="col-3 my-auto">
                     <p class="card-text">{{sale.rep.name}}</p>
                   </div>
                   <div class="col-2 my-auto text-center">
@@ -72,9 +69,6 @@
                   </div>
                   <div class="col-2 my-auto text-center">
                     <p class="text-bold mb-0">{{sale.parent_customer.name}}</p>
-                  </div>
-                  <div class="col-1 my-auto text-center">
-                    <p class="card-text">{{sale.status}}</p>
                   </div>
                   <div class="col-3 text-end">
                     <a class="btn btn-outline-secondary ms-auto" href="{{ url_for('sale.edit_sale', sale_id=sale.id) }}"><i class="fa-solid fa-pen"></i></a>

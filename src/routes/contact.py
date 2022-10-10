@@ -18,7 +18,7 @@ def new_contact(customer_id):
     new_customer = Contact(
       name=form.name.data,
       role=form.role.data,
-      email=form.email.data,
+      email=form.email.data.lower(),
       phone=form.phone.data,
       parent_customer=Customer.query.get(customer_id)
     )
@@ -51,7 +51,7 @@ def edit_contact(contact_id):
   if edit_form.validate_on_submit():
     contact.name = edit_form.name.data
     contact.role = edit_form.role.data
-    contact.email = edit_form.email.data
+    contact.email = edit_form.email.data.lower()
     contact.phone = edit_form.phone.data
     db.session.commit()
     # Log message to user
