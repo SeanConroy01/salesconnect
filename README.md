@@ -1,6 +1,6 @@
-# Customer Relationship Management System
+# SalesConnect
 
-Customer Relationship Management System for a small/meduim sales team. Allowing them to track key customer contacts and record their individual sales, giving management/admins further insight into the teams performance.
+SalesConnect is a Customer Relationship Management System for a small/meduim-sized sales team. It allows a team to track customers, key contacts within those customers and record sales. Additional, the application gives management/admins further insight into the team's oveall performance through basic metrics.
 
 <div>
   <p>
@@ -58,15 +58,15 @@ DATABASE_URI=sqlite:///data.db
 ```
 python3 app.py
 ```
-6. Go to localhost:5000/create-admin, this will create default a default admin and user account. which can then be used the create additional accounts
+6. Go to localhost:5000 and use the following sample credentials to login to either an admin or user account
 ```
 Admin
-Username: admin@cisco.com
-Password: 1234567890
+Username: zsheperd@cisco.com
+Password: 31b16Sjv*Q6a
 
 User
-Username: user@cisco.com
-Password: 1234567890
+Username: jhopkins@cisco.com
+Password: sq61gvMUF$2b
 ```
 
 ## License

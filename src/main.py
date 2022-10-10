@@ -66,7 +66,7 @@ class Sale(db.Model):
   customer_id = db.Column(db.Integer, db.ForeignKey("customers.id"))
   parent_customer = relationship("Customer", back_populates="sales")
 
-db.create_all()
+# db.create_all()
 
 # Import blueprints
 from src.routes.auth import auth_routes
