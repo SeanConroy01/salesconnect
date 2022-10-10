@@ -40,7 +40,7 @@ git clone https://github.com/SeanConroy01/qa-application.git
 ```
 2. Change directory.
 ```
-cd qa-application
+cd salesconnect-main
 ```
 3. Create environment and install required pip packages.
 ```
